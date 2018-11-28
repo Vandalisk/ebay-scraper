@@ -22,6 +22,16 @@ listings.each do |listing|
     # specify the collection where this record will be stored
     product['_collection'] = "listings"
 
-    # save the product to the job’s outputs
+    # save the product to the outputs.
     outputs << product
+
+    # enqueue more pages to the scrape job
+    pages << {
+        url: product['url'],
+        page_type: 'details',
+        vars: {  # adding vars to this page
+            title: product['title'],
+            price: product['price']
+        }
+      }
 end
